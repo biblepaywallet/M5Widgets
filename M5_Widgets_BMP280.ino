@@ -2,6 +2,8 @@
 #include "Free_Fonts.h"
 #include "Seeed_BMP280.h"
 
+M5Touch touch;
+
 M5Gauge tempGauge;
 M5ProgressBar tempPB;
 M5BarGraph bar;
@@ -73,16 +75,20 @@ void setup() {
   tempPB.draw();
   bar.draw();
   lg.draw();
+
+  touch.setTouchFunctionA(btnAFunc0);
+  touch.setTouchFunctionB(btnBFunc0);
+  touch.setTouchFunctionC(btnCFunc0);
+
   t0 = millis();
 }
 
 void loop() {
+  touch.tm.run();
   t1 = millis() - t0;
   if (t1 < interval) return;
   myValue0 = bmp280.getTemperature();
   myValue1 = bmp280.getPressure() / 100.0;
-  Serial.print("myValue0 = "); Serial.println(myValue0);
-  Serial.print("myValue1 = "); Serial.println(myValue1);
   lineCount++;
   if (lineCount > 318) {
     lg.clear();
@@ -100,3 +106,33 @@ void loop() {
   lg.draw();
   t0 = millis();
 }
+
+static void btnAFunc0() {
+  Serial.println("Button A was pressed");
+  if (touch.visible()) {
+    touch.increaseBacklight(10);
+    Serial.println("increase backlight");
+  }
+}
+
+static void btnBFunc0() {
+  Serial.println("Button B was pressed");
+  if (touch.visible()) touch.eraseMenu();
+  else {
+    touch.drawMenu(F("MAIN MENU"), F("+"), F("OK"), F("-"));
+    while (touch.visible()) {
+      // Waiting for the user to do something else
+      touch.tm.run();
+    }
+  }
+}
+
+static void btnCFunc0() {
+  Serial.println("Button C was pressed");
+  if (touch.visible()) {
+    touch.decreaseBacklight(10);
+    Serial.println("decrease backlight");
+  }
+}
+
+
