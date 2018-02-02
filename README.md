@@ -1,4 +1,4 @@
-9# M5Widgets
+# M5Widgets
 Widgets for the M5Stack
 
 This is based on the [alas now defunct!] [Phoenard project](https://github.com/Phoenard/Phoenard). The Phoenard had a touchscreen, whereas the M5Stack has a "dumb" screen. So instead of copy/pasting and adapting the code, I am selecting the juicy, non-touch bits, and adapting them to the M5, while simplifying a bit.
