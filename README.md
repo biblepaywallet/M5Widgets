@@ -20,6 +20,7 @@ add the following
     #include "utility/M5ProgressBar.h"
     #include "utility/M5BarGraph.h"
     #include "utility/M5LineGraph.h"
+    #include "utility/M5Touch.h"
 
 You have now access to the M5Widgets. Yay!
 
@@ -29,3 +30,5 @@ I am adding two [similar] examples: M5_Widgets.ino and M5_Widgets_BMP280.ino. Th
 Since this is a work in progress, I have stripped down the comments and license (I'm keeping the same MIT license). That doesn't mean I am trying to negate Phoenard's work, or take undue credit. I need the code to be as compact as possible, and don't need reams of comments to wade through, in every file. In due time, I will make a proper documentation for all the widgets, and the main M5Widget class, from which all widgets are descended.
 
 The original is much more complex, and evolved. There are quite a few abstraction classes (widget container, display, etc), that I decided to skip to make things simpler. I have added one widget of my own, the M5Gauge, and will add more, as the need arises. Also, I will try to rework some of the `isTouched` logic into an abstraction class for the three buttons the M5Stack has. This would enable things like a scrollable ItemList, where Button A would be up, Button C down, and Button B select.
+
+Added M5Touch, a framework for menus using the 3 buttons. Idea and partial code from the treasure trove at  https://github.com/tomsuch/M5Stack-SAM
