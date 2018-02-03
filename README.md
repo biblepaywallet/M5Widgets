@@ -5,7 +5,15 @@ This is based on the [alas now defunct!] [Phoenard project](https://github.com/P
 
 # Installation
 
-It is a little more complex than the regular library, as I am integrating this to the M5Stack library. The first step is to drop all the .cpp and .h files (except `Free_fonts.h`, which is for the sample sketches) to the `~/Arduino/libraries/M5Stack/src/utility/` folder. Then, in `M5Stack.h`, towards the bottom of the file, after:
+It is a little more complex than the regular library, as I am integrating this to the M5Stack library. The first step is to drop all the .cpp and .h files (except `Free_fonts.h`, which is for the sample sketches) to the `~/Arduino/libraries/M5Stack/src/utility/` folder.
+
+![alt text](https://github.com/Kongduino/M5Widgets/blob/master/README-00.png "All the files you need to add.")
+
+You'll also need these two libraries in your Arduino/libraries folder: [QRCode](https://github.com/ricmoo/qrcode) and [Seeed_BMP280](https://github.com/Seeed-Studio/Grove_BMP280).
+
+![alt text](https://github.com/Kongduino/M5Widgets/blob/master/README-02.png "Required libraries")
+
+Then, in `M5Stack.h`, towards the bottom of the file, after:
 
     extern M5Stack M5;
     #define m5 M5
@@ -22,9 +30,14 @@ add the following
     #include "utility/M5LineGraph.h"
     #include "utility/M5Touch.h"
 
+![alt text](https://github.com/Kongduino/M5Widgets/blob/master/README-01.png "Never mind the last two lines :-)")
+
 You have now access to the M5Widgets. Yay!
 
 I am adding two [similar] examples: M5_Widgets.ino and M5_Widgets_BMP280.ino. The first one displays random data points, whereas the second one uses a BMP280 sensor to display temperature and pressure data in various widgets. They both use the Free_Fonts.h header file. Make copies, and put then in folders. You know the drill.
+
+![alt text](https://github.com/Kongduino/M5Widgets/blob/master/README-03.png "The two sketches.")
+
 
 # Remarks
 Since this is a work in progress, I have stripped down the comments and license (I'm keeping the same MIT license). That doesn't mean I am trying to negate Phoenard's work, or take undue credit. I need the code to be as compact as possible, and don't need reams of comments to wade through, in every file. In due time, I will make a proper documentation for all the widgets, and the main M5Widget class, from which all widgets are descended.
