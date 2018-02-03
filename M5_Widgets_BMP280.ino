@@ -8,11 +8,13 @@ M5Gauge tempGauge;
 M5ProgressBar tempPB;
 M5BarGraph bar;
 M5LineGraph lg;
+M5QRCode qr;
+
 float myValue0, myValue1;
 int barHeight = 100, barWidth = 20;
 uint16_t lineCount = 0;
 BMP280 bmp280;
-double t0, t1, interval = 600;
+double t0, t1, interval = 10000;
 
 void setup() {
   M5.begin();
@@ -80,6 +82,16 @@ void setup() {
   touch.setTouchFunctionB(btnBFunc0);
   touch.setTouchFunctionC(btnCFunc0);
 
+  qr.yOffset = 135;
+  qr.xOffset = 10;
+  // Let's try the default text.
+  qr.draw();
+  delay(2000);
+  String s = String(myValue0) + "°C";
+  qr.erase();
+  qr.setValue(s);
+  qr.draw();
+
   t0 = millis();
 }
 
@@ -104,6 +116,10 @@ void loop() {
   bar.draw();
   lg.addValue(myValue0);
   lg.draw();
+  String s = "Temp: " + String(myValue0) + "C. Pressure: " + String(myValue1 / 100.0) + " HPa";
+  qr.erase();
+  qr.setValue(s);
+  qr.draw();
   t0 = millis();
 }
 
@@ -119,7 +135,7 @@ static void btnBFunc0() {
   Serial.println("Button B was pressed");
   if (touch.visible()) touch.eraseMenu();
   else {
-    touch.drawMenu(F("MAIN MENU"), F("+"), F("OK"), F("-"));
+    touch.drawMenu(F("BACKLIGHT"), F("+"), F("OK"), F("-"));
     while (touch.visible()) {
       // Waiting for the user to do something else
       touch.tm.run();
