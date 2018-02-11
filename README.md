@@ -22,21 +22,17 @@ Then, in `M5Stack.h`, towards the bottom of the file, after:
 add the following
 
     // added by Kongduino
-    #include "utility/M5DataBuffer.h"
     #include "utility/M5Widget.h"
-    #include "utility/M5Gauge.h"
-    #include "utility/M5ProgressBar.h"
-    #include "utility/M5BarGraph.h"
-    #include "utility/M5LineGraph.h"
-    #include "utility/M5Touch.h"
 
-![alt text](https://github.com/Kongduino/M5Widgets/blob/master/README-01.png "Never mind the last two lines :-)")
+All other .h / .cpp files are included from within M5Widget.h, which makes it easier to maintain.
 
 You have now access to the M5Widgets. Yay!
 
 I am adding two [similar] examples: M5_Widgets.ino and M5_Widgets_BMP280.ino. The first one displays random data points, whereas the second one uses a BMP280 sensor to display temperature and pressure data in various widgets. They both use the Free_Fonts.h header file. Make copies, and put then in folders. You know the drill.
 
 ![alt text](https://github.com/Kongduino/M5Widgets/blob/master/README-03.png "The two sketches.")
+
+Added M5Bridge, which is working much better now (I sure ain't saying it is bug-free yet though). Added also a sample project M5_Bridge_Sample.ino, that demonstrates a Serial-to-LoRa bridge, with a menu.
 
 
 # Remarks
