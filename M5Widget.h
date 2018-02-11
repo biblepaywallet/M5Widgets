@@ -1,8 +1,9 @@
-#include <M5Stack.h>
-#include <Arduino.h>
-
 #ifndef _M5WIDGET_H_
 #define _M5WIDGET_H_
+
+#include <M5Stack.h>
+#include <Arduino.h>
+#include "utility/M5DataBuffer.h"
 
 #define BACKGROUND  0
 #define FRAME       1
@@ -36,84 +37,106 @@ void drawStringMiddle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, c
 uint16_t calculateRGB565(uint8_t r, uint8_t g, uint8_t b);
 
 class M5Widget {
- public:
-  /// Constructor for a new widget, initializing all fields to the default values
-  M5Widget();
-  /// Destructor for a widget, clearing any child widgets and freeing memory
-  virtual ~M5Widget();
-  /// Gets the x-coordinate of the widget
-  const int getX(void) { return x; }
-  /// Gets the y-coordinate of the widget
-  const int getY(void) { return y; }
-  /// Gets the width of the widget
-  const int getWidth(void) { return width; }
-  /// Gets the height of the widget
-  const int getHeight(void) { return height; }
-  /// Sets the new bounds (x, y, width, height) of the widget
-  void setBounds(int x, int y, int width, int height);
-  /// Sets the size (width, height) of the widget
-  void setSize(int width, int height);
-  /** @brief Sets a style color for this widget
-   * 
-   * The colorId specifies an index in the palette to set the color.
-   * Standard indices for all widgets are defined as the constants
-   * BACKGROUND, FRAME, FOREGROUND, CONTENT, HIGHLIGHT and ACTIVATED.
-   */
-  virtual void setColor(int colorId, uint16_t color);
-  /** @brief Gets a style color set for this widget
-   * 
-   * The colorId specifies an index in the palette to set the color.
-   * Standard indices for all widgets are defined as the constants
-   * BACKGROUND, FRAME, FOREGROUND, CONTENT, HIGHLIGHT and ACTIVATED.
-   */
-  const uint16_t color(int colorId) { return myColors[colorId]; }
+  public:
+    /// Constructor for a new widget, initializing all fields to the default values
+    M5Widget();
+    /// Destructor for a widget, clearing any child widgets and freeing memory
+    virtual ~M5Widget();
+    /// Gets the x-coordinate of the widget
+    const int getX(void) {
+      return x;
+    }
+    /// Gets the y-coordinate of the widget
+    const int getY(void) {
+      return y;
+    }
+    /// Gets the width of the widget
+    const int getWidth(void) {
+      return width;
+    }
+    /// Gets the height of the widget
+    const int getHeight(void) {
+      return height;
+    }
+    /// Sets the new bounds (x, y, width, height) of the widget
+    void setBounds(int x, int y, int width, int height);
+    /// Sets the size (width, height) of the widget
+    void setSize(int width, int height);
+    /** @brief Sets a style color for this widget
 
-  virtual void setFont(const GFXfont* font);
+       The colorId specifies an index in the palette to set the color.
+       Standard indices for all widgets are defined as the constants
+       BACKGROUND, FRAME, FOREGROUND, CONTENT, HIGHLIGHT and ACTIVATED.
+    */
+    virtual void setColor(int colorId, uint16_t color);
+    /** @brief Gets a style color set for this widget
 
-  /// Sets whether the widget is displayed and updated
-  void setVisible(bool visible);
-  /// Gets whether the widget is displayed and updated
-  bool isVisible(void);
+       The colorId specifies an index in the palette to set the color.
+       Standard indices for all widgets are defined as the constants
+       BACKGROUND, FRAME, FOREGROUND, CONTENT, HIGHLIGHT and ACTIVATED.
+    */
+    const uint16_t color(int colorId) {
+      return myColors[colorId];
+    }
 
-  /// Gets whether the widget has been drawn
-  bool isDrawn(void);
-  
-  /// Sets whether the widget is drawn and undrawn
-  void setDrawingEnabled(bool drawing);
-  /// Gets whether the widget is drawn and undrawn
-  bool isDrawingEnabled(void);
-  // Erases widget
-  void eraseWidget(void);
-  void fillBorderRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color, uint16_t borderColor);
-  void fillBorderRoundRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t radius, uint16_t color, uint16_t borderColor);
-  void drawTriangle(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
+    virtual void setFont(const GFXfont* font);
 
-  /// Invalidated the widget, causing it to be re-drawn at a later time
-  void invalidate(void);
-  /// Checks whether the widget is invalidated and needs to be redrawn
-  bool isInvalidated(void);
-  /// Draws the widget if invalidated, clearing the invalidated state
-  void draw_validate();
-  /// Clear draw function routine, where widgets perform un-drawing (to background)
-  virtual void undraw(void);
-  /// Draw function routine, where widgets must perform drawing
-  virtual void draw(void) = 0;
-  /// Update function routine, where widget logic must be performed
-  virtual void update(void) = 0;
-  uint16_t myColors[6] = {
-    TFT_WHITE, TFT_LIGHTGREY, TFT_BLACK, TFT_BLACK, TFT_YELLOW, TFT_LIGHTGREY
-  };
+    /// Sets whether the widget is displayed and updated
+    void setVisible(bool visible);
+    /// Gets whether the widget is displayed and updated
+    bool isVisible(void);
 
-protected:
-  //! \name Widget bounds
-  //@{
-  int x, y, width, height;
-  const GFXfont* myFont = &FreeMono9pt7b;
-  //@}
-  //! Draw state flags of the widget (0=invisible, 0x1=visible, 0x2=drawn, 0x4=draw_disabled)
-  unsigned char visible;
-  //! Invalidated state of the widget
-  bool invalidated;
+    /// Gets whether the widget has been drawn
+    bool isDrawn(void);
+
+    /// Sets whether the widget is drawn and undrawn
+    void setDrawingEnabled(bool drawing);
+    /// Gets whether the widget is drawn and undrawn
+    bool isDrawingEnabled(void);
+    // Erases widget
+    void eraseWidget(void);
+    void fillBorderRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color, uint16_t borderColor);
+    void fillBorderRoundRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t radius, uint16_t color, uint16_t borderColor);
+    void drawTriangle(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
+
+    /// Invalidated the widget, causing it to be re-drawn at a later time
+    void invalidate(void);
+    /// Checks whether the widget is invalidated and needs to be redrawn
+    bool isInvalidated(void);
+    /// Draws the widget if invalidated, clearing the invalidated state
+    void draw_validate();
+    /// Clear draw function routine, where widgets perform un-drawing (to background)
+    virtual void undraw(void);
+    /// Draw function routine, where widgets must perform drawing
+    virtual void draw(void) = 0;
+    /// Update function routine, where widget logic must be performed
+    virtual void update(void) = 0;
+    uint16_t myColors[6] = {
+      TFT_WHITE, TFT_LIGHTGREY, TFT_BLACK, TFT_BLACK, TFT_YELLOW, TFT_LIGHTGREY
+    };
+
+  protected:
+    //! \name Widget bounds
+    //@{
+    int x, y, width, height;
+    const GFXfont* myFont = &FreeMono9pt7b;
+    //@}
+    //! Draw state flags of the widget (0=invisible, 0x1=visible, 0x2=drawn, 0x4=draw_disabled)
+    unsigned char visible;
+    //! Invalidated state of the widget
+    bool invalidated;
 };
+
+#include "utility/M5Gauge.h"
+#include "utility/M5ProgressBar.h"
+#include "utility/M5BarGraph.h"
+#include "utility/M5LineGraph.h"
+#include "utility/M5QRCode.h"
+#include "utility/M5Bridge.h"
+#include "utility/M5Supplier.h"
+#include "utility/M5BMP280.h"
+#include "utility/M5SmartGauge.h"
+#include "utility/M5Touch.h"
+#include "utility/M5StaticMenu.h"
 
 #endif

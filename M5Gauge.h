@@ -1,7 +1,7 @@
-#include "M5Widget.h"
-
 #ifndef _M5GAUGE_H_
 #define _M5GAUGE_H_
+
+#include "M5Widget.h"
 
 class M5Gauge : public M5Widget {
  public:

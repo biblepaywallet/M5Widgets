@@ -1,7 +1,7 @@
-#include "M5Widget.h"
-
 #ifndef _M5BARGRAPH_H_
 #define _M5BARGRAPH_H_
+
+#include "M5Widget.h"
 
 class M5BarGraph : public M5Widget {
  public:

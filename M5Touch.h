@@ -13,8 +13,11 @@ class M5Touch {
     void drawMenu(String, String, String, String);
     void eraseMenu(void);
     bool visible(void);
+    char getFeedback(void);
     void increaseBacklight(uint8_t);
     void decreaseBacklight(uint8_t);
+    void logAnswer(const char *, const char *);
+    void readRect(uint32_t, uint32_t, uint32_t, uint32_t, uint16_t *);
 
     M5Timer tm;
 
@@ -24,7 +27,7 @@ class M5Touch {
     void (*_touchCFunction)(void);
 
     uint16_t sys_menucolor, sys_windowcolor, sys_menutextcolor;
-    uint16_t save0[320*28], save1[320*28];
+    uint16_t save0[320*28], save1[60*28], save2[60*28], save3[60*28];
     bool menuDisplayed;
     uint8_t brightness;
 };
