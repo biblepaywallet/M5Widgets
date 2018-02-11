@@ -44,6 +44,12 @@ void loop() {
   touch.tm.run();
 }
 
+void drawPill(uint16_t c) {
+  M5.Lcd.fillRoundRect(290, 2, 12, HEADERHEIGHT - 4, 4, c);
+  M5.Lcd.drawRoundRect(290, 2, 12, HEADERHEIGHT - 4, 4, TFT_WHITE);
+  M5.Lcd.drawRoundRect(291, 3, 10, HEADERHEIGHT - 6, 4, TFT_BLACK);
+}
+
 void drawHeader() {
   M5.Lcd.fillRect(0, 0, 320, HEADERHEIGHT, TFT_NAVY);
   M5.Lcd.setFont(FF21);
@@ -51,9 +57,7 @@ void drawHeader() {
   M5.Lcd.drawString("BRIDGE", 1, HEADERHEIGHT - 14, 1);
   M5.Lcd.setFont(FF17);
   M5.Lcd.drawString("multi", 1, 0, 1);
-  M5.Lcd.fillRoundRect(290, 2, 12, HEADERHEIGHT - 4, 4, TFT_RED);
-  M5.Lcd.drawRoundRect(290, 2, 12, HEADERHEIGHT - 4, 4, TFT_WHITE);
-  M5.Lcd.drawRoundRect(291, 3, 10, HEADERHEIGHT - 6, 4, TFT_BLACK);
+  drawPill(TFT_RED);
 }
 
 void drawCenter() {
@@ -165,10 +169,12 @@ void loopPipe1() {
 
 void startDaMusic() {
   drawBusyFooter();
+  drawPill(TFT_GREEN);
   m5bridge.start();
 }
 
 void stopDaMusic() {
   drawMainFooter();
+  drawPill(TFT_RED);
   m5bridge.stop();
 }
