@@ -34,7 +34,7 @@ I am adding two [similar] examples: M5_Widgets.ino and M5_Widgets_BMP280.ino. Th
 
 Added M5Bridge, which is working much better now (I sure ain't saying it is bug-free yet though). Added also a sample project M5_Bridge_Sample.ino, that demonstrates a Serial-to-LoRa bridge, with a menu.
 
-![alt text](https://github.com/Kongduino/M5Widgets/blob/master/README-04.png "M5_Bridge_Sample")
+![alt text](https://github.com/Kongduino/M5Widgets/blob/master/README-04.jpg "M5_Bridge_Sample")
 
 # Remarks
 Since this is a work in progress, I have stripped down the comments and license (I'm keeping the same MIT license). That doesn't mean I am trying to negate Phoenard's work, or take undue credit. I need the code to be as compact as possible, and don't need reams of comments to wade through, in every file. In due time, I will make a proper documentation for all the widgets, and the main M5Widget class, from which all widgets are descended.
